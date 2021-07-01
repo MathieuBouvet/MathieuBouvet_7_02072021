@@ -10,7 +10,7 @@ export type Recipe = {
 };
 
 export type Ingredient = {
-  ingredient: string;
+  name: string;
   quantity?: number;
   unit?: string;
 };
