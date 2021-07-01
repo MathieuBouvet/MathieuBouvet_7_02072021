@@ -1,0 +1,22 @@
+.mainSearchBox {
+  display: flex;
+  align-items: center;
+  background-color: var(--color-foundation-1);
+  height: 70px;
+  border-radius: var(--base-radius);
+  padding: 0 25px;
+}
+
+.searchInput {
+  flex-grow: 1;
+  background-color: transparent;
+  border: none;
+  height: 100%;
+  font-size: 1.2rem;
+  outline: none;
+}
+
+.searchIcon {
+  margin-left: 10px;
+  font-size: 1.5rem;
+}

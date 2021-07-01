@@ -1,0 +1,11 @@
+.appLogo {
+  width: 50px;
+  margin: auto;
+  display: block;
+}
+
+.appTitle {
+  color: var(--color-primary);
+  text-align: center;
+  margin: 10px;
+}
