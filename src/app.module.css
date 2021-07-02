@@ -9,3 +9,32 @@
   text-align: center;
   margin: 10px;
 }
+
+.advancedFilterContainer {
+  margin-top: 35px;
+}
+
+.tagContainer {
+  --gap: 5px;
+  --negative-margin: calc(var(--gap) * -1);
+
+  margin: 30px var(--negative-margin) 0 var(--negative-margin);
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tag {
+  margin: var(--gap);
+}
+
+.ingredientTag {
+  background-color: var(--color-ingredient);
+}
+
+.applianceTag {
+  background-color: var(--color-appliance);
+}
+
+.ustensilTag {
+  background-color: var(--color-ustensil);
+}

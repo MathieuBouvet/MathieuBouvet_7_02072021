@@ -4,7 +4,8 @@ import { dedupList } from "../../utils/dedupList";
 
 import styles from "./advancedFilter.module.css";
 
-interface Props extends Pick<AdvancedFilterProps, "onTagClick"> {
+interface Props
+  extends Pick<AdvancedFilterProps, "onTagClick" | "selectedTags"> {
   recipes: Recipe[];
 }
 
@@ -12,7 +13,7 @@ function getUstensils(recipe: Recipe): string[] {
   return recipe.ustensils;
 }
 
-const UstensilFilter = ({ recipes, onTagClick }: Props) => {
+const UstensilFilter = ({ recipes, onTagClick, selectedTags }: Props) => {
   const tags = dedupList(recipes.flatMap(getUstensils));
 
   return (
@@ -21,6 +22,7 @@ const UstensilFilter = ({ recipes, onTagClick }: Props) => {
       onTagClick={onTagClick}
       label="ustensile"
       className={styles.ustensilFilter}
+      selectedTags={selectedTags}
     />
   );
 };

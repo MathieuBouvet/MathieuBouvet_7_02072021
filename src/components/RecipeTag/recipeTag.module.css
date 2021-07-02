@@ -1,0 +1,19 @@
+.recipeTag {
+  color: white;
+  padding: 7px 14px;
+  border-radius: var(--base-radius);
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.removeButton {
+  display: flex;
+  align-items: center;
+  color: inherit;
+  margin-left: 10px;
+}
+
+.removeButton:hover {
+  transform: scale(1.2);
+}

@@ -11,6 +11,7 @@ export interface Props {
   className?: string;
   label: string;
   onTagClick?: (tag: string) => void;
+  selectedTags?: string[];
 }
 
 const AdvancedFilter = ({
@@ -18,6 +19,7 @@ const AdvancedFilter = ({
   className = "",
   label,
   onTagClick = () => {},
+  selectedTags = [],
 }: Props) => {
   const [isFolded, setFolded] = useState(true);
   const [searchTag, setSearchTag] = useState("");
@@ -43,7 +45,7 @@ const AdvancedFilter = ({
           className={styles.unfoldButton}
         >
           {label}
-          <FaChevronUp className={styles.unfoldIcon} />
+          <FaChevronDown className={styles.unfoldIcon} />
         </button>
       ) : (
         <>
@@ -59,7 +61,7 @@ const AdvancedFilter = ({
               onClick={() => setFolded(true)}
               className={styles.foldButton}
             >
-              <FaChevronDown />
+              <FaChevronUp />
             </button>
           </div>
           <div className={styles.tagContainer}>
@@ -68,6 +70,7 @@ const AdvancedFilter = ({
                 onClick={() => onTagClick(tag)}
                 className={styles.tagButton}
                 key={`${label}-${tag}`}
+                disabled={selectedTags.includes(tag)}
               >
                 {tag}
               </button>
