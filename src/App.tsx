@@ -9,7 +9,7 @@ import {
 } from "./components/AdvancedFilter";
 import RecipeTag from "./components/RecipeTag";
 
-import useDedupList from "./hooks/useDedupList";
+import useList from "./hooks/useList";
 
 import { recipes } from "./data/recipes";
 
@@ -20,11 +20,10 @@ const App = () => {
   const [searchValue, setSearchValue] = useState("");
 
   const [selectedIngredients, appendIngredient, removeIngredient] =
-    useDedupList<string>();
+    useList<string>();
   const [selectedAppliances, appendAppliance, removeAppliance] =
-    useDedupList<string>();
-  const [selectedUstensils, appendUstensil, removeUstensil] =
-    useDedupList<string>();
+    useList<string>();
+  const [selectedUstensils, appendUstensil, removeUstensil] = useList<string>();
 
   const hasSelectedTags =
     selectedIngredients.length !== 0 ||
