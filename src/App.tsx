@@ -8,8 +8,11 @@ import {
   ApplianceFilter,
 } from "./components/AdvancedFilter";
 import RecipeTag from "./components/RecipeTag";
+import Recipecard from "./components/RecipeCard";
 
 import useList from "./hooks/useList";
+
+import mainSearch from "./utils/mainSearch";
 
 import { recipes } from "./data/recipes";
 
@@ -29,6 +32,25 @@ const App = () => {
     selectedIngredients.length !== 0 ||
     selectedAppliances.length !== 0 ||
     selectedUstensils.length !== 0;
+
+  const searchedRecipes =
+    searchValue.length < 3 ? recipes : mainSearch(recipes, searchValue);
+
+  const recipesMatchingTagSelection = searchedRecipes.filter(recipe => {
+    const ingredientsMatch = selectedIngredients.every(ingredientTag =>
+      recipe.ingredients.find(ingredient => ingredient.name === ingredientTag)
+    );
+
+    const appliancesMatch = selectedAppliances.every(
+      applianceTag => recipe.appliance === applianceTag
+    );
+
+    const ustensilsMatch = selectedUstensils.every(ustensilTag =>
+      recipe.ustensils.find(ustensil => ustensil === ustensilTag)
+    );
+
+    return ingredientsMatch && appliancesMatch && ustensilsMatch;
+  });
 
   return (
     <>
@@ -67,23 +89,27 @@ const App = () => {
 
         <div className={styles.advancedFilterContainer}>
           <IngredientFilter
-            recipes={recipes}
+            recipes={recipesMatchingTagSelection}
             onTagClick={appendIngredient}
             selectedTags={selectedIngredients}
           />
           <ApplianceFilter
-            recipes={recipes}
+            recipes={recipesMatchingTagSelection}
             onTagClick={appendAppliance}
             selectedTags={selectedAppliances}
           />
           <UstensilFilter
-            recipes={recipes}
+            recipes={recipesMatchingTagSelection}
             onTagClick={appendUstensil}
             selectedTags={selectedUstensils}
           />
         </div>
       </header>
-      <main>content</main>
+      <main className={styles.recipeContainer}>
+        {recipesMatchingTagSelection.map(recipe => (
+          <Recipecard key={recipe.id} recipe={recipe} />
+        ))}
+      </main>
     </>
   );
 };
