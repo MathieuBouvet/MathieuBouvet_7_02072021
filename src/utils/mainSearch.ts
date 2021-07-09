@@ -4,7 +4,12 @@ export default function mainSearch(
   recipes: Recipe[],
   search: string
 ): Recipe[] {
-  return recipes.filter(recipe => {
+  return recipes.filter(naiveFilterBuilder(search));
+}
+
+const naiveFilterBuilder =
+  (search: string) =>
+  (recipe: Recipe): boolean => {
     const searchFor = search.toLowerCase();
     return (
       recipe.name.toLowerCase().includes(searchFor) ||
@@ -13,5 +18,4 @@ export default function mainSearch(
         ingredient.name.toLowerCase().includes(searchFor)
       )
     );
-  });
-}
+  };
