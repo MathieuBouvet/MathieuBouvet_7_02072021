@@ -109,6 +109,12 @@ const App = () => {
         {recipesMatchingTagSelection.map(recipe => (
           <Recipecard key={recipe.id} recipe={recipe} />
         ))}
+        {recipesMatchingTagSelection.length === 0 && (
+          <p className={styles.noResult}>
+            Aucune recette ne correspond à votre critère. Vous pouvez chercher
+            « tarte aux pommes », « poisson », etc.
+          </p>
+        )}
       </main>
     </>
   );

@@ -45,3 +45,8 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 25px;
 }
+
+.noResult {
+  font-style: italic;
+  grid-column: 1/-1;
+}
