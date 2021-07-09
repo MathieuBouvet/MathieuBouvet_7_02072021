@@ -1,4 +1,6 @@
 import { Recipe } from "../data/types";
+import { recipesIndex } from "../data/recipesTextIndex";
+import isSubstringOf from "../utils/isSubstringOf";
 
 /**
  * 
@@ -10,24 +12,32 @@ export default function mainSearch(
   recipes: Recipe[],
   search: string
 ): Recipe[] {
-  return recipes.filter(naiveFilterBuilder(search));
+  return recipes.filter(hopefullyOptimizedFilterBuilder(search));
 }
 
-/**
- * 
- * @param search the user inputed searched terms
- * @returns A partially applied function, ready to be passed to Array.filter  
- *  The returned function returns true if recipe matches the searched term
- */
-const naiveFilterBuilder =
+const hopefullyOptimizedFilterBuilder =
   (search: string) =>
   (recipe: Recipe): boolean => {
-    const searchFor = search.toLowerCase();
-    return (
-      recipe.name.toLowerCase().includes(searchFor) ||
-      recipe.description.toLowerCase().includes(searchFor) ||
-      recipe.ingredients.some(ingredient =>
-        ingredient.name.toLowerCase().includes(searchFor)
+    const recipeIndex = recipesIndex[recipe.id];
+    const lowerCasedSearch = search.toLowerCase();
+
+    const isNameMatching = isSubstringOf(
+      lowerCasedSearch,
+      recipe.name,
+      recipeIndex.nameIndex
+    );
+    const isDescriptionMatching = isSubstringOf(
+      lowerCasedSearch,
+      recipe.description,
+      recipeIndex.descriptionIndex
+    );
+
+    const isIngredientsMatching = recipe.ingredients.some((ingredient, i) =>
+      isSubstringOf(
+        lowerCasedSearch,
+        ingredient.name,
+        recipeIndex.ingredientsIndex[i]
       )
     );
+    return isNameMatching || isDescriptionMatching || isIngredientsMatching;
   };
