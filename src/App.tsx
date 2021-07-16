@@ -11,10 +11,10 @@ import RecipeTag from "./components/RecipeTag";
 import Recipecard from "./components/RecipeCard";
 
 import useList from "./hooks/useList";
-
 import mainSearch from "./utils/mainSearch";
 
 import { recipes } from "./data/recipes";
+import { TRIGGER_SEARCH_LENGTH } from "./config";
 
 import styles from "./app.module.css";
 import logo from "./logo.png";
@@ -35,7 +35,9 @@ const App = () => {
 
   // List of recipes matching the user search, or all recipes when the search has not been triggered yet
   const searchedRecipes =
-    searchValue.length < 3 ? recipes : mainSearch(recipes, searchValue);
+    searchValue.length < TRIGGER_SEARCH_LENGTH
+      ? recipes
+      : mainSearch(recipes, searchValue);
 
   // Refine the recipes further, to match the user selected tags (ingredients, appliances and ustensils)
   const recipesMatchingTagSelection = searchedRecipes.filter(recipe => {
@@ -119,8 +121,8 @@ const App = () => {
         ))}
         {recipesMatchingTagSelection.length === 0 && (
           <p className={styles.noResult}>
-            Aucune recette ne correspond à votre critère. Vous pouvez chercher
-            « tarte aux pommes », « poisson », etc.
+            Aucune recette ne correspond à votre critère. Vous pouvez chercher «
+            tarte aux pommes », « poisson », etc.
           </p>
         )}
       </main>

@@ -1,5 +1,6 @@
 import { recipes } from "./recipes";
 import { Recipe } from "./types";
+import { TRIGGER_SEARCH_LENGTH } from "../config";
 
 export type IndexedRecipes = {
   [recipeId: number]: IndexedRecipe;
@@ -12,17 +13,17 @@ export type IndexedRecipe = {
 };
 
 export type TextIndex = {
-  [char: string]: number[]; // each char of the string indexes position occurences
+  [indexedSubString: string]: number[]; // each char of the string indexes position occurences
 };
 
 function buildIndex(str: string): TextIndex {
   const index: TextIndex = {};
-  for (let i = 0; i < str.length; i++) {
-    const char = str[i].toLowerCase();
-    if (index[char] == null) {
-      index[char] = [];
+  for (let i = 0; i < str.length - TRIGGER_SEARCH_LENGTH + 1; i++) {
+    const subString = str.substr(i, TRIGGER_SEARCH_LENGTH).toLowerCase();
+    if (index[subString] == null) {
+      index[subString] = [];
     }
-    index[char].push(i);
+    index[subString].push(i);
   }
   return index;
 }
