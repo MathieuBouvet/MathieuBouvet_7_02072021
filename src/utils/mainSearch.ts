@@ -21,23 +21,23 @@ const hopefullyOptimizedFilterBuilder =
     const recipeIndex = recipesIndex[recipe.id];
     const lowerCasedSearch = search.toLowerCase();
 
-    const isNameMatching = isSubstringOf(
+    const isNameMatching = () => isSubstringOf(
       lowerCasedSearch,
       recipe.name,
       recipeIndex.nameIndex
     );
-    const isDescriptionMatching = isSubstringOf(
+    const isDescriptionMatching = () => isSubstringOf(
       lowerCasedSearch,
       recipe.description,
       recipeIndex.descriptionIndex
     );
 
-    const isIngredientsMatching = recipe.ingredients.some((ingredient, i) =>
+    const isIngredientsMatching = () => recipe.ingredients.some((ingredient, i) =>
       isSubstringOf(
         lowerCasedSearch,
         ingredient.name,
         recipeIndex.ingredientsIndex[i]
       )
     );
-    return isNameMatching || isDescriptionMatching || isIngredientsMatching;
+    return isNameMatching() || isDescriptionMatching() || isIngredientsMatching();
   };
