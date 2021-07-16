@@ -45,3 +45,8 @@ ul {
   margin: 0;
   list-style: none;
 }
+
+mark {
+  background-color: khaki;
+  border-radius: 2px;
+}

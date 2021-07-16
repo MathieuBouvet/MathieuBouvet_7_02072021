@@ -9,6 +9,7 @@
 .recipeContent {
   background-color: var(--color-foundation-1);
   padding: 15px;
+  border-radius: 0 0 var(--base-radius) var(--base-radius);
 }
 
 .titleContainer {
@@ -26,6 +27,7 @@
 
 .clock {
   margin-left: auto;
+  margin-right: 7px;
 }
 
 .details {
