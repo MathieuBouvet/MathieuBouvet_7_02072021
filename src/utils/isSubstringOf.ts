@@ -11,8 +11,8 @@ function isSubstringOf(
       `"needle" must be longer than ${TRIGGER_SEARCH_LENGTH}, as defined in from TRIGGER_SEARCH_LENGTH constant in config.js`
     );
   }
-  if (haystack === "") {
-    return false; // an empty string has no substring (except the empty string, covered above)
+  if (haystack === "" || needle.length > haystack.length) {
+    return false; // the empty string has no substring, and a longer needle cannot be a substring of haystack
   }
   const startingSubString = needle.substr(0, TRIGGER_SEARCH_LENGTH);
 
