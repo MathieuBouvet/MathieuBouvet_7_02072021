@@ -107,7 +107,7 @@ const App = () => {
       </header>
       <main className={styles.recipeContainer}>
         {recipesMatchingTagSelection.map(recipe => (
-          <Recipecard key={recipe.id} recipe={recipe} />
+          <Recipecard key={recipe.id} recipe={recipe} searchedTerm={searchValue}/>
         ))}
         {recipesMatchingTagSelection.length === 0 && (
           <p className={styles.noResult}>

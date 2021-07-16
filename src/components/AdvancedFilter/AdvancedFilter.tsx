@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import cx from "classnames";
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
+import Highlight from "react-highlight-words";
 
 import { useClickOutside } from "../../hooks/useClickOutside";
 
@@ -31,9 +32,6 @@ const AdvancedFilter = ({
   const ref = useClickOutside(() => {
     if (!isFolded) setFolded(true);
   });
-
-  const regexpReady = searchTag.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // sanitize search value to be able to construct a valid regexp from it
-  const searchedTagRegexp = new RegExp(regexpReady, "i");
 
   const searchRef = useRef<HTMLInputElement>(null);
 
@@ -81,13 +79,13 @@ const AdvancedFilter = ({
                 className={styles.tagButton}
                 key={`${label}-${tag}`}
                 disabled={selectedTags.includes(tag)}
-                dangerouslySetInnerHTML={{
-                  __html: tag.replace(
-                    searchedTagRegexp,
-                    match => `<mark>${match}</mark>`
-                  ),
-                }}
-              />
+              >
+                <Highlight
+                  searchWords={[searchTag]}
+                  textToHighlight={tag}
+                  autoEscape
+                ></Highlight>
+              </button>
             ))}
             {filteredTags.length === 0 && (
               <p className={styles.noResults}>Pas de résultats</p>
