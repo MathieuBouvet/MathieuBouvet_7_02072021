@@ -5,9 +5,12 @@ import { recipes } from "../src/data/recipes";
 
 const suite = new Benchmark.Suite();
 
-const search = "ajouter"
+suite.add("Lots of matches in the description", () => mainSearch(recipes, "ajouter"));
+suite.add("Lots of matches, mainly in ingredients", () => mainSearch(recipes, "sucre"));
+suite.add("3 character search", () => mainSearch(recipes, "mie"));
+suite.add("1 match from the title", () => mainSearch(recipes, "sandwich"));
+suite.add("no matches", () => mainSearch(recipes, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
 
-suite.add("main search", () => mainSearch(recipes, search));
 
 suite.on("start", function() {
   console.log("Benchmarking started");
