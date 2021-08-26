@@ -33,9 +33,11 @@ const App = () => {
     selectedAppliances.length !== 0 ||
     selectedUstensils.length !== 0;
 
+  // List of recipes matching the user search, or all recipes when the search has not been triggered yet
   const searchedRecipes =
     searchValue.length < 3 ? recipes : mainSearch(recipes, searchValue);
 
+  // Refine the recipes further, to match the user selected tags (ingredients, appliances and ustensils)
   const recipesMatchingTagSelection = searchedRecipes.filter(recipe => {
     const ingredientsMatch = selectedIngredients.every(ingredientTag =>
       recipe.ingredients.find(ingredient => ingredient.name === ingredientTag)
@@ -59,6 +61,7 @@ const App = () => {
         <h1 className={styles.appTitle}>Les petits plats</h1>
         <MainSearchBox value={searchValue} onChange={setSearchValue} />
         {hasSelectedTags && (
+          // render the list of selected tags
           <ul className={styles.tagContainer}>
             {selectedIngredients.map(ingredient => (
               <RecipeTag
@@ -88,6 +91,7 @@ const App = () => {
         )}
 
         <div className={styles.advancedFilterContainer}>
+          {/* render the tag selection dropdowns*/}
           <IngredientFilter
             recipes={recipesMatchingTagSelection}
             onTagClick={appendIngredient}
