@@ -39,16 +39,20 @@ const App = () => {
 
   // Refine the recipes further, to match the user selected tags (ingredients, appliances and ustensils)
   const recipesMatchingTagSelection = searchedRecipes.filter(recipe => {
+
+    // every selected ingredients appear in the recipe ingredients list
     const ingredientsMatch = selectedIngredients.every(ingredientTag =>
-      recipe.ingredients.find(ingredient => ingredient.name === ingredientTag)
+      recipe.ingredients.some(ingredient => ingredient.name === ingredientTag)
     );
 
+    // every selected appliances matches the recipe appliance
     const appliancesMatch = selectedAppliances.every(
       applianceTag => recipe.appliance === applianceTag
     );
 
+    // every selected ustensils appear in the recipe ustensils list
     const ustensilsMatch = selectedUstensils.every(ustensilTag =>
-      recipe.ustensils.find(ustensil => ustensil === ustensilTag)
+      recipe.ustensils.some(ustensil => ustensil === ustensilTag)
     );
 
     return ingredientsMatch && appliancesMatch && ustensilsMatch;
